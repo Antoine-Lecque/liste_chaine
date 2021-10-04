@@ -21,12 +21,12 @@ friend class Iterateur;
 
 Element::Element(const string& s) {
    valeur = s;
-   precedent = suivant = NULL;
+   precedent = suivant = nullptr;
 }
 
 
 Iterateur::Iterateur() {
-   position = dernier = NULL;
+   position = dernier = nullptr;
 }
 
 
@@ -41,7 +41,7 @@ void Iterateur::suivant() {
 
 
 void Iterateur::precedent() {
-   if (position == NULL) // fin de la liste
+   if (position == nullptr) // fin de la liste
       position = dernier;
    else
       position = position->precedent;
@@ -54,7 +54,7 @@ bool Iterateur::egal(const Iterateur& b) const {
 
 
 Liste::Liste() {
-   premier = dernier = NULL;
+   premier = dernier = nullptr;
 }
 
 // ajouter s a la fin de la liste
@@ -73,12 +73,38 @@ void Liste::ajouter(const std::string& s){
 
 // ajouter s avant la position pos
 void Liste::inserer(Iterateur& pos, const std::string& s){
+    Element *elt = new Element(s);
+    elt->suivant = pos.position;
 
+    pos.precedent();
+
+    if (pos.position != nullptr) {
+        elt->precedent = pos.position;
+        elt->precedent->suivant = elt;
+        elt->suivant->precedent = elt;
+    } else {
+        this->premier = elt;
+    }
 }
 
 // supprimer l'element a la position pos
 void Liste::supprimer(Iterateur& pos){
-
+    if (pos.position != nullptr) {
+        if (pos.position->precedent == nullptr) { //début de la liste
+            pos.suivant();
+            pos.position->precedent = nullptr;
+            this->premier = pos.position;
+        } else if (pos.position->suivant == nullptr) { //fin de la liste
+            pos.precedent();
+            pos.position->suivant = nullptr;
+            this->dernier = pos.position;
+        } else if (pos.position->suivant == nullptr && pos.position->precedent == nullptr) //liste contenant un seul element
+            this->premier = this->dernier = nullptr;
+        else {
+            pos.position->suivant->precedent = pos.position->precedent;
+            pos.position->precedent->suivant = pos.position->suivant;
+        }
+    }
 }
    
 Iterateur Liste::debut() const {
@@ -91,7 +117,7 @@ Iterateur Liste::debut() const {
 
 Iterateur Liste::fin() const {
    Iterateur it;
-   it.position = NULL;
+   it.position = nullptr;
    it.dernier = dernier;
    return it;
 }

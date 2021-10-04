@@ -13,20 +13,20 @@ int main() {
     personnel.ajouter("Doue Damien");
     personnel.ajouter("Vaillant Veronique");
 
-    /*
+
     // ajouter un element a la quatrieme position
-    list<string>::iterator pos = personnel.begin();
-    pos++; pos++; pos++;
-    personnel.insert(pos, "Sage Stephane");
+    Iterateur pos = personnel.debut();
+    pos.suivant(); pos.suivant(); pos.suivant();
+    personnel.inserer(pos, "Sage Stephane");
 
     // supprimer l'element a la deuxieme position
-    pos = personnel.begin();
-    pos++;
-    personnel.erase(pos);
+    pos = personnel.debut();
+    pos.suivant();
+    personnel.supprimer(pos);
 
     // afficher tous les elements
-    for (pos = personnel.begin(); pos != personnel.end(); pos++)
-        cout << *pos << endl;
+    for (pos = personnel.debut(); !pos.egal(personnel.fin()); pos.suivant())
+        cout << pos.get() << endl;
 
-    return 0;*/
+    return 0;
 }
