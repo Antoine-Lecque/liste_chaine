@@ -59,7 +59,16 @@ Liste::Liste() {
 
 // ajouter s a la fin de la liste
 void Liste::ajouter(const std::string& s){
-	dernier.
+    Element *elt = new Element(s);
+    elt->suivant = nullptr;
+    elt->precedent = this->dernier;
+
+    if (this->premier == nullptr) {
+        this->premier = this->dernier = elt;
+    } else
+        this->dernier->suivant = elt;
+
+    this->dernier = elt;
 }
 
 // ajouter s avant la position pos
