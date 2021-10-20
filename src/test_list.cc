@@ -26,12 +26,12 @@ int main() {
 
     // afficher tous les elements
     for (pos = personnel.debut(); pos != personnel.fin(); pos++)
-        cout << pos.get() << endl;
+        cout << *pos << endl;
 
     cout << endl;
     --pos;--pos;
-    cout << pos.get() << endl;
+    cout << *pos << endl;
     ++pos;
-    cout << pos.get() << endl;
+    cout << *pos << endl;
     return 0;
 }

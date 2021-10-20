@@ -42,6 +42,9 @@ public:
     // retourne la valeur dans cette position
     std::string& get() const;
 
+    // retourne la valeur dans cette position
+    const std::string& operator*() const;
+
     //forme postfixe :
     // avance a la position suivante
     Iterateur operator++(int);

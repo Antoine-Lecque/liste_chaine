@@ -29,9 +29,8 @@ Iterateur::Iterateur() {
    position = dernier = nullptr;
 }
 
-
-string& Iterateur::get() const {
-   return position->valeur;
+const string& Iterateur::operator*() const {
+    return position->valeur;
 }
 
 // forme postfixe
