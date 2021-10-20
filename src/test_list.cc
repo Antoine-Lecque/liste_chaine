@@ -29,7 +29,8 @@ int main() {
         cout << *pos << endl;
 
     cout << endl;
-    --pos;--pos;
+    --pos;
+    --pos;
     cout << *pos << endl;
     ++pos;
     cout << *pos << endl;
