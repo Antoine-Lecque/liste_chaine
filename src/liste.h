@@ -36,20 +36,31 @@ private:
 
 class Iterateur {
 public:
-   // constructeur
-   Iterateur();
+    // constructeur
+    Iterateur();
 
-   // retourne la valeur dans cette position
-   std::string& get() const;
+    // retourne la valeur dans cette position
+    std::string& get() const;
 
-   // avance a la position suivante
-   void suivant();
+    //forme postfixe :
+    // avance a la position suivante
+    Iterateur operator++(int);
 
-   // recule a la position precedente
-   void precedent();
+    // recule a la position precedente
+    Iterateur operator--(int);
 
-   // compare deux iterateurs
-   bool egal(const Iterateur& b) const;
+    //forme prefixe :
+    // avance a la position suivante
+    Iterateur &operator++();
+
+    // recule a la position precedente
+    Iterateur &operator--();
+
+    // compare deux iterateurs
+    bool operator==(const Iterateur& b) const;
+
+    // compare deux iterateurs
+    bool operator!=(const Iterateur& b) const;
 
 private:
    // pointeur vers l'element courant

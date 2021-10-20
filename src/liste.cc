@@ -34,24 +34,43 @@ string& Iterateur::get() const {
    return position->valeur;
 }
 
-
-void Iterateur::suivant() {
+// forme postfixe
+Iterateur Iterateur::operator++(int i) {
    position = position->suivant;
+   return *this;
 }
 
+//forme prefixe
+Iterateur &Iterateur::operator++() {
+    position = position->suivant;
+    return *this;
+}
 
-void Iterateur::precedent() {
+// forme postfixe
+Iterateur Iterateur::operator--(int i) {
    if (position == nullptr) // fin de la liste
       position = dernier;
    else
       position = position->precedent;
+    return *this;
 }
 
-
-bool Iterateur::egal(const Iterateur& b) const {
-   return position == b.position;
+//forme prefixe
+Iterateur &Iterateur::operator--(){
+    if (position == nullptr) // fin de la liste
+        position = dernier;
+    else
+        position = position->precedent;
+    return *this;
 }
 
+bool Iterateur::operator==(const Iterateur &b) const {
+    return position == b.position;
+}
+
+bool Iterateur::operator!=(const Iterateur &b) const {
+    return position != b.position;
+}
 
 Liste::Liste() {
    premier = dernier = nullptr;
@@ -76,7 +95,7 @@ void Liste::inserer(Iterateur& pos, const std::string& s){
     Element *elt = new Element(s);
     elt->suivant = pos.position;
 
-    pos.precedent();
+    pos--;
 
     if (pos.position != nullptr) {
         elt->precedent = pos.position;
@@ -91,11 +110,11 @@ void Liste::inserer(Iterateur& pos, const std::string& s){
 void Liste::supprimer(Iterateur& pos){
     if (pos.position != nullptr) {
         if (pos.position->precedent == nullptr) { //début de la liste
-            pos.suivant();
+            pos++;
             pos.position->precedent = nullptr;
             this->premier = pos.position;
         } else if (pos.position->suivant == nullptr) { //fin de la liste
-            pos.precedent();
+            pos--;
             pos.position->suivant = nullptr;
             this->dernier = pos.position;
         } else if (pos.position->suivant == nullptr && pos.position->precedent == nullptr) //liste contenant un seul element

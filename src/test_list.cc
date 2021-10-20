@@ -16,17 +16,22 @@ int main() {
 
     // ajouter un element a la quatrieme position
     Iterateur pos = personnel.debut();
-    pos.suivant(); pos.suivant(); pos.suivant();
+    pos++; pos++; pos++;
     personnel.inserer(pos, "Sage Stephane");
 
     // supprimer l'element a la deuxieme position
     pos = personnel.debut();
-    pos.suivant();
+    pos++;
     personnel.supprimer(pos);
 
     // afficher tous les elements
-    for (pos = personnel.debut(); !pos.egal(personnel.fin()); pos.suivant())
+    for (pos = personnel.debut(); pos != personnel.fin(); pos++)
         cout << pos.get() << endl;
 
+    cout << endl;
+    --pos;--pos;
+    cout << pos.get() << endl;
+    ++pos;
+    cout << pos.get() << endl;
     return 0;
 }
